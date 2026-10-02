@@ -1,0 +1,65 @@
+@csrf_exempt
+def cookies(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            acepta_opcionales = data.get('optional', False)
+            print(data)
+            # Activamos de forma obligatoria la sesión técnica de Django
+            if not acepta_opcionales:
+             request.session['cookies_aceptadas'] = True
+             request.session['permitir_analiticas'] = False  
+            else:
+             request.session['cookies_aceptadas'] = True
+             request.session['permitir_analiticas'] = True  
+            
+            # Forzamos la creación y guardado de la sesión en la base de datos o caché
+            request.session.modified = True 
+
+            print(request.session['cookies_aceptadas'])
+            print(request.session['permitir_analiticas'])
+            
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Cookies de sesión seguras establecidas correctamente.',
+                'analiticas_permitidas': acepta_opcionales
+            }, status=200)
+            
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'JSON inválido'}, status=400)
+            
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+
+@csrf_exempt
+def cookies(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            acepta_opcionales = data.get('optional', False)
+            print(data)
+            # Activamos de forma obligatoria la sesión técnica de Django
+
+            request.session['cookies_aceptadas'] = True
+
+            if acepta_opcionales:request.session['permitir_analiticas'] = False
+            else:request.session['permitir_analiticas'] = True
+            
+            # Forzamos la creación y guardado de la sesión en la base de datos o caché
+            request.session.modified = True 
+            
+            print(request.session['cookies_aceptadas'])
+            print(request.session['permitir_analiticas'])
+            
+            
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Cookies de sesión seguras establecidas correctamente.',
+                'analiticas_permitidas': acepta_opcionales
+            }, status=200)
+            
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'JSON inválido'}, status=400)
+            
+    return JsonResponse({'error': 'Método no permitido'}, status=405)

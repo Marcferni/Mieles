@@ -1,0 +1,86 @@
+ Desinstalar node.js
+ Remove-Item -Recurse -Force "C:\Program Files\nodejs\"
+ Remove-Item -Recurse -Force "C:\nvm4w\"
+ Remove-Item -Recurse -Force "$env:APPDATA\npm"
+ Remove-Item -Recurse -Force "$env:APPDATA\npm-cache"
+ taskkill /F /IM node.exe
+ reiniciar
+ instalar node.js
+ npm -v         
+
+
+    @classmethod
+    def CancionesXPlaylist(cls, getter_id):
+       return Playlist.objects.filter(id=getter_id)             
+
+def playlistCanciones(request,id):
+    if request.method == "GET":
+        canciones = Playlist.CancionesXPlaylist(id)
+        lista = list(canciones.values_list())
+        print("canciones:", lista)
+        return JsonResponse(lista, safe=False)
+
+<template>
+  <div class="grid" :class="tracklist ? 'grid-cols-2' : 'grid-cols-1'">
+
+    <!-- Lista de canciones centrada -->
+    <div class="flex justify-center p-10">
+      <ul class="w-full max-w-sm p-6 bg-white border border-blue-500 rounded-lg border-double">
+        <li
+          v-for="item in items"
+          :key="item.cancionesid"
+          :class="['flex justify-between items-center py-2', { 'border-b border-blue-500': index !== items.lenght - 1 }]"
+        >
+          <span>{{ item.cancionesnombre }}</span>
+
+          <div class="flex gap-2">
+            <!-- Botones con iconos -->
+
+            <button
+              type="button"
+              class="text-pink-400 bg-blue-700 hover:text-pink-200 hover:bg-blue-900 font-small rounded-full border border-pink-700 text-xl px-2 py-1"
+              @click="reproductor(item)"
+            >
+              <span class="material-symbols-outlined">{{ item.isPlaying ? 'stop_circle' : 'play_circle' }}</span>
+            </button>
+
+            <button
+              type="button"
+              class="text-pink-400 bg-blue-700 hover:text-pink-200 hover:bg-blue-900 font-small rounded-full border border-pink-700 text-xl px-2 py-1"
+            >
+              <span class="material-symbols-outlined" @click="mostrar(item)">{{ item.isShowing ? 'close' : 'info' }}</span>
+            </button>
+
+
+            <button
+              type="button"
+              class="text-pink-400 bg-blue-700 hover:text-pink-200 hover:bg-blue-900 font-small rounded-full border border-pink-700 px-2 py-1"
+              @click="borrar(item.cancionesid)"
+            >
+              <span class="material-symbols-outlined">delete_forever</span>
+            </button>
+          </div>
+        </li>
+      </ul>
+      <!-- REPRODUCTOR dentro de la tarjeta -->
+      <div v-if="item.isPlaying"  class="flex justify-center p-10">
+        <div class="w-full max-w-sm p-6 bg-gray-100 border border-blue-500 rounded-lg">
+          <AudioReproductor :tracklist=item.cancionestracklist @cerrar="item.isPlaying = false"></AudioReproductor>
+        </div>
+      </div>
+      <div v-if="item.isShowing"  @cerrar="item.isShowing = false">
+        <span>Fecha de lanzamiento: {{ item.cancionesfecha_lanzamiento }}</span>
+        <span>Duracion: {{ item.cancionesduracion }}</span>
+        <span>Disco de origen: {{ item.cancionesdisconombre }}</span>
+        <span>Genero: {{ item.canciones__genero }}</span>
+      </div>
+      <!-- MODAL BORRADO (fuera del v-for) -->
+      <div v-if=eliminar class="flex items-center justify-center">
+        <div class="relative bg-white rounded-lg">
+          <!-- cierre explícito del componente Modal -->
+          <Eliminar :id=id :tipo=tipo @close="eliminar=false"></Eliminar>
+        </div>
+      </div>
+    </div>
+  </div> 
+</template>
