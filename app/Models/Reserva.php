@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
+//use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reserva extends Model
 {
-    //
+    
     use HasFactory;
-    use SoftDeletes;
+    //use SoftDeletes;
 
     protected $fillable = [
         'id',
@@ -19,11 +19,11 @@ class Reserva extends Model
         'id_user'
     ];
 
-    public function relacion_Reserver() {
+    public function User() {
         return $this->belongsTo(User::class,'id_user');
     }
 
-    public function relacion_Reserducto() {
+    public function Producto() {
         return $this->belongsToMany(Producto::class,'pedidos','id_reserva','id_producto');
     }
 }
