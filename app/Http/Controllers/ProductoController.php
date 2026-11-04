@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+Use App\Models\Producto;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -12,6 +14,8 @@ class ProductoController extends Controller
     public function index()
     {
         //
+        $lista = Producto::all();
+        return view('Producto.index')->with('lista', $lista); 
     }
 
     /**
@@ -20,6 +24,7 @@ class ProductoController extends Controller
     public function create()
     {
         //
+        return view('Producto.create');
     }
 
     /**
@@ -28,6 +33,13 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         //
+        $producto = new Producto();
+        $producto->nombre = $request->floating_nombre;
+        $producto->descripcion = $request->floating_descripcion;
+        $producto->imagen = $request->floating_imagen;
+        $producto->timestamps = false;
+        $producto->saveorfail();
+        return redirect()->route('Producto.show', $producto->id);
     }
 
     /**
@@ -36,6 +48,8 @@ class ProductoController extends Controller
     public function show(string $id)
     {
         //
+        $objeto = Producto::select('*')->where('id', $id)->get();
+        return view('Producto.show')->with('objeto', $objeto); 
     }
 
     /**
@@ -44,6 +58,8 @@ class ProductoController extends Controller
     public function edit(string $id)
     {
         //
+        $cosa = Producto::select('*')->where('id', $id)->get();
+        return view('Producto.edit')->with('cosa', $cosa); 
     }
 
     /**
@@ -52,6 +68,13 @@ class ProductoController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $articulo = Producto::findorfail($id);
+        $articulo->nombre = $request->floating_nombre;
+        $articulo->descripcion = $request->floating_descripcion;
+        $articulo->imagen = $request->floating_imagen;
+        $articulo->timestamps = false;
+        $articulo->saveorfail();
+        return redirect()->route('Producto.show', $id);
     }
 
     /**
@@ -60,5 +83,8 @@ class ProductoController extends Controller
     public function destroy(string $id)
     {
         //
+        $excedente = Producto::findorfail($id);
+        $excedente->delete();
+        return redirect()->route('Producto.index');
     }
 }
