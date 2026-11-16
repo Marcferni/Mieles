@@ -15,7 +15,7 @@ class ProductoController extends Controller
     {
         //
         $lista = Producto::all();
-        return view('Producto.index')->with('lista', $lista); 
+        return view('producto.index')->with('lista', $lista); 
     }
 
     /**
@@ -24,7 +24,7 @@ class ProductoController extends Controller
     public function create()
     {
         //
-        return view('Producto.create');
+        return view('producto.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class ProductoController extends Controller
         $producto->imagen = $request->floating_imagen;
         $producto->timestamps = false;
         $producto->saveorfail();
-        return redirect()->route('Producto.show', $producto->id);
+        return redirect()->route('producto.show', $producto->id);
     }
 
     /**
@@ -49,7 +49,7 @@ class ProductoController extends Controller
     {
         //
         $objeto = Producto::select('*')->where('id', $id)->get();
-        return view('Producto.show')->with('objeto', $objeto); 
+        return view('producto.show')->with('objeto', $objeto); 
     }
 
     /**
@@ -59,7 +59,7 @@ class ProductoController extends Controller
     {
         //
         $cosa = Producto::select('*')->where('id', $id)->get();
-        return view('Producto.edit')->with('cosa', $cosa); 
+        return view('producto.edit')->with('cosa', $cosa); 
     }
 
     /**
@@ -74,7 +74,7 @@ class ProductoController extends Controller
         $articulo->imagen = $request->floating_imagen;
         $articulo->timestamps = false;
         $articulo->saveorfail();
-        return redirect()->route('Producto.show', $id);
+        return redirect()->route('producto.show', $id);
     }
 
     /**
@@ -85,6 +85,6 @@ class ProductoController extends Controller
         //
         $excedente = Producto::findorfail($id);
         $excedente->delete();
-        return redirect()->route('Producto.index');
+        return redirect()->route('producto.index');
     }
 }
