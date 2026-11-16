@@ -3,7 +3,6 @@
     <x-head>
     </x-head>
     <body>   
-        <x-navbar></x-navbar>  
         {{ $slot }}
     </body>
     <x-footer>

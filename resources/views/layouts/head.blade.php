@@ -33,7 +33,7 @@
           <a href="{{ route('reserva.index') }}" class="block py-2 px-3 text-white bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0" aria-current="page">Reservas</a>
         </li>
         <li>
-          <a href="{{ route('Producto.index') }}" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Productos</a>
+          <a href="{{ route('producto.index') }}" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Productos</a>
         </li>
         <li>
           <a href="#" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Pricing</a>
@@ -51,7 +51,7 @@
           <div id="dropdownNavbar" class="z-10 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44">
               <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownNvbarButton">
                 <li>
-                  <a href="{{ route('Producto.index') }}"  class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">usuario funcional</a>
+                  <a href="{{ route('producto.index') }}"  class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">usuario funcional</a>
                 </li>
                 <li>
                   <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Settings</a>
