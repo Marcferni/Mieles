@@ -22,7 +22,7 @@ class ProductoFactory extends Factory
             $profactory = new Producto(),
             $profactory->nombre =  $this->faker()->name(),
             $profactory->descripcion = $this->faker()->name(),
-            $profactory->imagen = $this->faker()->name(),
+            $profactory->imagen = 'productos/miel.jpg',
         ];
     }
 }

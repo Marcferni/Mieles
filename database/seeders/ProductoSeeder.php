@@ -18,7 +18,7 @@ class ProductoSeeder extends Seeder
         $prodeed = new Producto();
         $prodeed->nombre = "Miel";
         $prodeed->descripcion = "Articulo de consumo de caracter apicola 100% natural";
-        $prodeed->imagen = "-";
+        $prodeed->imagen = "productos/miel.jpg";
         save();
     }
 }

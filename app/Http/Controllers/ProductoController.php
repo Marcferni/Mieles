@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 Use App\Models\Producto;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
@@ -33,10 +34,16 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'floating_nombre' => ['required'],
+            'floating_descripcion' => ['required'],
+            'floating_imagen' => ['required', 'image'],
+        ]);
+
         $producto = new Producto();
         $producto->nombre = $request->floating_nombre;
         $producto->descripcion = $request->floating_descripcion;
-        $producto->imagen = $request->floating_imagen;
+        $producto->imagen = $request->file('floating_imagen')->store('productos', 'public');
         $producto->timestamps = false;
         $producto->saveorfail();
         return redirect()->route('producto.show', $producto->id);
@@ -68,10 +75,16 @@ class ProductoController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'floating_nombre' => ['required'],
+            'floating_descripcion' => ['required'],
+            'floating_imagen' => ['required', 'imagen'],
+        ]);
+
         $articulo = Producto::findorfail($id);
         $articulo->nombre = $request->floating_nombre;
         $articulo->descripcion = $request->floating_descripcion;
-        $articulo->imagen = $request->floating_imagen;
+        $articulo->imagen = $request->file('floating_imagen')->store('productos', 'public');
         $articulo->timestamps = false;
         $articulo->saveorfail();
         return redirect()->route('producto.show', $id);
@@ -84,6 +97,7 @@ class ProductoController extends Controller
     {
         //
         $excedente = Producto::findorfail($id);
+        //Storage::disk('public')->delete($excedente->imagen);
         $excedente->delete();
         return redirect()->route('producto.index');
     }
